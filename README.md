@@ -77,6 +77,10 @@ bin/Release/net6.0-windows/win-x64/publish/
 - [Privacy](docs/PRIVACY.md)
 - [Resources used](docs/RESOURCES.md)
 
+## Acknowledgements
+
+Built with help from OpenAI Codex.
+
 ## Project Layout
 
 ```text
