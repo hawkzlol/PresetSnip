@@ -1,0 +1,32 @@
+# Build output
+bin/
+obj/
+publish/
+artifacts/
+
+# Visual Studio / Rider
+.vs/
+.idea/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Test and coverage output
+TestResults/
+coverage/
+*.coverage
+*.coveragexml
+
+# Logs and dumps
+*.log
+*.dmp
+*.mdmp
+
+# OS files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Local runtime settings
+*.local.json

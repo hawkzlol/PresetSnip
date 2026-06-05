@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>false</ImplicitUsings>
+    <ApplicationIcon>Assets\PresetSnip.ico</ApplicationIcon>
+    <AssemblyName>PresetSnip</AssemblyName>
+    <RootNamespace>PresetSnip</RootNamespace>
+    <Version>0.1.0</Version>
+    <Authors>PresetSnip contributors</Authors>
+    <Description>A small Windows screenshot utility for capturing a preset screen region with a global hotkey.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+</Project>
