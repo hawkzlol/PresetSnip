@@ -292,6 +292,11 @@ public partial class MainWindow : Window
         _notificationService.SetEnabled(_settings.NotificationsEnabled, _settings.LastSavedPath);
     }
 
+    private void PreviewSoundButton_Click(object sender, RoutedEventArgs e)
+    {
+        _soundService.Play(Math.Clamp(VolumeSlider.Value / 100, 0, 1));
+    }
+
     private void UpdateUi(string? status = null, MediaBrush? statusBrush = null)
     {
         HotKeyText.Text = _settings.HotKey.DisplayText;
@@ -337,6 +342,7 @@ public partial class MainWindow : Window
     private void UpdateFeedbackUi()
     {
         VolumeSlider.IsEnabled = _settings.SoundEnabled;
+        PreviewSoundButton.IsEnabled = VolumeSlider.Value > 0;
         VolumeText.Text = $"{Math.Round(_settings.SoundVolume * 100):0}%";
     }
 

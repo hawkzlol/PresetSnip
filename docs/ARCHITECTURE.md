@@ -10,7 +10,7 @@ PresetSnip is a small WPF application with UI code in `MainWindow` and OS-specif
 - `GlobalHotKey`: `RegisterHotKey` / `UnregisterHotKey` wrapper.
 - `ScreenCaptureService`: rectangle screenshot capture and PNG output.
 - `SnipSoundService`: generated snip sound playback with volume scaling.
-- `NotificationService`: latest-snip tray indicator and notification balloon.
+- `NotificationService`: latest-snip tray indicator and reusable realtime toast.
 - `VirtualScreen`: virtual monitor bounds.
 - `NativeCursor`: physical cursor position.
 - `DpiAwareness`: best-effort per-monitor DPI awareness.
@@ -21,7 +21,7 @@ PresetSnip is a small WPF application with UI code in `MainWindow` and OS-specif
 2. `MainWindow` writes those values through `SettingsStore`.
 3. `GlobalHotKey` raises an event when the configured key is pressed.
 4. `ScreenCaptureService` captures the normalized rectangle and saves a timestamped PNG.
-5. Optional feedback runs: generated sound playback and latest-snip notification.
+5. Optional feedback runs: generated sound playback and latest-snip notification; newer captures update the same toast immediately.
 6. The last saved path is persisted for display on the next launch.
 
 ## Persistence Model

@@ -206,6 +206,8 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="12" />
                                     <ColumnDefinition Width="42" />
+                                    <ColumnDefinition Width="12" />
+                                    <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Grid.Column="0"
                                            Text="Volume"
@@ -220,6 +222,12 @@
                                            VerticalAlignment="Center"
                                            TextAlignment="Right"
                                            Style="{StaticResource MutedText}" />
+                                <Button x:Name="PreviewSoundButton"
+                                        Grid.Column="6"
+                                        MinHeight="32"
+                                        Padding="10,4"
+                                        Content="Preview Sound"
+                                        Click="PreviewSoundButton_Click" />
                             </Grid>
                             <CheckBox x:Name="NotificationCheckBox"
                                       Margin="0,12,0,0"

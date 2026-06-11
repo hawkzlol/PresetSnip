@@ -36,7 +36,7 @@ dotnet publish -c Release -r win-x64 --self-contained true /p:PublishSingleFile=
 - `RegisterHotKey` is scoped to the app window handle and is released when the window closes.
 - Settings load failures intentionally fall back to defaults so a corrupt settings file does not prevent launch.
 - The snip sound is synthesized in memory to avoid bundling third-party sound assets.
-- Notifications use `System.Windows.Forms.NotifyIcon` and should never be required for successful capture.
+- Notifications use `System.Windows.Forms.NotifyIcon` for the tray indicator and a reusable WPF toast for realtime latest-snip display. Notification failures should never block capture.
 
 ## Manual Test Scenarios
 
@@ -46,6 +46,8 @@ dotnet publish -c Release -r win-x64 --self-contained true /p:PublishSingleFile=
 - Set an invalid directory and confirm capture is blocked with an error.
 - Press the hotkey while another app is focused and confirm a PNG is saved.
 - Toggle sound on/off and confirm capture behavior still succeeds.
+- Click Preview Sound and confirm it plays at the current slider volume.
 - Move the volume slider and confirm the setting persists after restart.
 - Toggle notifications and confirm latest-snip status still updates in the app.
+- Take multiple captures quickly and confirm the notification updates in place to the newest file.
 - Launch after changing the app icon and confirm startup does not depend on external asset files.

@@ -5,6 +5,7 @@
 - Added repo-ready documentation, MIT license, GitHub issue templates, and CI workflow.
 - Added optional generated snip sound with persisted volume control.
 - Added optional latest-snip notification indicator.
+- Added Preview Sound button and realtime notification updates for newer snips.
 
 ## 0.1.0
 

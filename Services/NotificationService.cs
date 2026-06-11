@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using PresetSnip;
 using Forms = System.Windows.Forms;
 using DrawingIcon = System.Drawing.Icon;
 using SystemIcons = System.Drawing.SystemIcons;
@@ -9,6 +10,7 @@ namespace PresetSnip.Services;
 public sealed class NotificationService : IDisposable
 {
     private readonly Forms.NotifyIcon _notifyIcon;
+    private LatestSnipToastWindow? _toastWindow;
 
     public NotificationService()
     {
@@ -24,6 +26,11 @@ public sealed class NotificationService : IDisposable
     {
         _notifyIcon.Visible = enabled;
         UpdateLatestPath(latestPath);
+
+        if (!enabled)
+        {
+            _toastWindow?.Stop();
+        }
     }
 
     public void ShowLatestSnip(string path, bool enabled)
@@ -34,17 +41,15 @@ public sealed class NotificationService : IDisposable
             return;
         }
 
-        _notifyIcon.ShowBalloonTip(
-            2500,
-            "PresetSnip",
-            $"Saved {Path.GetFileName(path)}",
-            Forms.ToolTipIcon.Info);
+        _toastWindow ??= new LatestSnipToastWindow();
+        _toastWindow.ShowLatest(path);
     }
 
     public void Dispose()
     {
         _notifyIcon.Visible = false;
         _notifyIcon.Dispose();
+        _toastWindow?.Close();
     }
 
     private void UpdateLatestPath(string? path)

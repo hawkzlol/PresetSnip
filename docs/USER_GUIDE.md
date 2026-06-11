@@ -14,9 +14,9 @@ Once a valid directory and capture area are set, press the configured hotkey whi
 
 ## Feedback Options
 
-Use **Play snip sound** to enable or disable the capture sound. The volume slider controls only PresetSnip's generated snip sound.
+Use **Play snip sound** to enable or disable the automatic capture sound. The volume slider controls only PresetSnip's generated snip sound. Use **Preview Sound** to test the current volume without taking a screenshot.
 
-Use **Show latest snip notification** to enable or disable a simple Windows notification indicator. When enabled, it shows the latest saved snip file after each capture and keeps the tray tooltip pointed at the newest snip.
+Use **Show latest snip notification** to enable or disable the latest-snip indicator. When enabled, each new capture updates the same visible notification immediately instead of queuing older notifications, and the tray tooltip stays pointed at the newest snip.
 
 ## Changing the Hotkey
 
