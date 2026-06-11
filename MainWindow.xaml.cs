@@ -19,11 +19,13 @@ public partial class MainWindow : Window
 {
     private readonly SettingsStore _settingsStore = new();
     private readonly ScreenCaptureService _captureService = new();
+    private readonly SnipSoundService _soundService = new();
+    private readonly NotificationService _notificationService = new();
     private readonly MediaBrush _okBrush = new SolidColorBrush(Color.FromRgb(22, 101, 52));
     private readonly MediaBrush _warnBrush = new SolidColorBrush(Color.FromRgb(180, 83, 9));
     private readonly MediaBrush _errorBrush = new SolidColorBrush(Color.FromRgb(185, 28, 28));
 
-    private AppSettings _settings;
+    private AppSettings _settings = new();
     private GlobalHotKey? _globalHotKey;
     private bool _isRecordingHotKey;
     private bool _isLoading;
@@ -34,13 +36,18 @@ public partial class MainWindow : Window
         TryUseExecutableIcon();
 
         _settings = _settingsStore.Load();
+        _settings.SoundVolume = Math.Clamp(_settings.SoundVolume, 0, 1);
+
         _isLoading = true;
         DirectoryTextBox.Text = _settings.SaveDirectory;
+        SoundCheckBox.IsChecked = _settings.SoundEnabled;
+        VolumeSlider.Value = _settings.SoundVolume * 100;
+        NotificationCheckBox.IsChecked = _settings.NotificationsEnabled;
         _isLoading = false;
 
-        LastSavedText.Text = string.IsNullOrWhiteSpace(_settings.LastSavedPath)
-            ? "No captures saved yet."
-            : _settings.LastSavedPath;
+        UpdateFeedbackUi();
+        UpdateLatestSnipDisplay(_settings.LastSavedPath);
+        _notificationService.SetEnabled(_settings.NotificationsEnabled, _settings.LastSavedPath);
         UpdateUi("Ready.");
     }
 
@@ -61,6 +68,7 @@ public partial class MainWindow : Window
     private void Window_Closing(object? sender, CancelEventArgs e)
     {
         _globalHotKey?.Dispose();
+        _notificationService.Dispose();
         _settingsStore.Save(_settings);
     }
 
@@ -209,7 +217,13 @@ public partial class MainWindow : Window
             var path = _captureService.CaptureToFile(region.Value, saveDirectory);
             _settings.LastSavedPath = path;
             _settingsStore.Save(_settings);
-            LastSavedText.Text = path;
+            UpdateLatestSnipDisplay(path);
+            if (_settings.SoundEnabled)
+            {
+                _soundService.Play(_settings.SoundVolume);
+            }
+
+            _notificationService.ShowLatestSnip(path, _settings.NotificationsEnabled);
             UpdateUi($"Saved {Path.GetFileName(path)}.", _okBrush);
         }
         catch (Exception ex)
@@ -240,6 +254,42 @@ public partial class MainWindow : Window
     {
         _isRecordingHotKey = false;
         RecordButton.Content = "Start Record";
+    }
+
+    private void SoundCheckBox_Changed(object sender, RoutedEventArgs e)
+    {
+        if (_isLoading)
+        {
+            return;
+        }
+
+        _settings.SoundEnabled = SoundCheckBox.IsChecked == true;
+        _settingsStore.Save(_settings);
+        UpdateFeedbackUi();
+    }
+
+    private void VolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+    {
+        if (_isLoading)
+        {
+            return;
+        }
+
+        _settings.SoundVolume = Math.Clamp(VolumeSlider.Value / 100, 0, 1);
+        _settingsStore.Save(_settings);
+        UpdateFeedbackUi();
+    }
+
+    private void NotificationCheckBox_Changed(object sender, RoutedEventArgs e)
+    {
+        if (_isLoading)
+        {
+            return;
+        }
+
+        _settings.NotificationsEnabled = NotificationCheckBox.IsChecked == true;
+        _settingsStore.Save(_settings);
+        _notificationService.SetEnabled(_settings.NotificationsEnabled, _settings.LastSavedPath);
     }
 
     private void UpdateUi(string? status = null, MediaBrush? statusBrush = null)
@@ -282,6 +332,25 @@ public partial class MainWindow : Window
     {
         StatusText.Text = message;
         StatusText.Foreground = brush;
+    }
+
+    private void UpdateFeedbackUi()
+    {
+        VolumeSlider.IsEnabled = _settings.SoundEnabled;
+        VolumeText.Text = $"{Math.Round(_settings.SoundVolume * 100):0}%";
+    }
+
+    private void UpdateLatestSnipDisplay(string? path)
+    {
+        if (string.IsNullOrWhiteSpace(path))
+        {
+            LatestSnipNameText.Text = "No snips yet";
+            LastSavedText.Text = "The latest capture will appear here.";
+            return;
+        }
+
+        LatestSnipNameText.Text = Path.GetFileName(path);
+        LastSavedText.Text = path;
     }
 
     private CaptureRegion? GetRegion()

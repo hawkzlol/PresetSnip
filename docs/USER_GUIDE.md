@@ -12,6 +12,12 @@
 
 Once a valid directory and capture area are set, press the configured hotkey while PresetSnip is open. The app captures the saved rectangle immediately and writes a PNG file to the selected directory.
 
+## Feedback Options
+
+Use **Play snip sound** to enable or disable the capture sound. The volume slider controls only PresetSnip's generated snip sound.
+
+Use **Show latest snip notification** to enable or disable a simple Windows notification indicator. When enabled, it shows the latest saved snip file after each capture and keeps the tray tooltip pointed at the newest snip.
+
 ## Changing the Hotkey
 
 1. Click **Start Record**.

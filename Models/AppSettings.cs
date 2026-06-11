@@ -18,6 +18,12 @@ public sealed class AppSettings
     public ScreenPoint? PointB { get; set; }
 
     public string? LastSavedPath { get; set; }
+
+    public bool SoundEnabled { get; set; } = true;
+
+    public double SoundVolume { get; set; } = 0.65;
+
+    public bool NotificationsEnabled { get; set; } = true;
 }
 
 public sealed class HotKeyGesture

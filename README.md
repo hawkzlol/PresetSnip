@@ -18,12 +18,15 @@ PresetSnip is a small Windows desktop screenshot utility for capturing the same 
 - Save directory field with paste support and a native folder picker.
 - 3-second delayed point picker overlay for selecting point A and point B.
 - Immediate PNG capture of the saved rectangle.
+- Optional generated snip sound with customizable volume.
+- Optional latest-snip notification indicator.
 - Settings persisted across restarts:
   - save directory
   - hotkey
   - point A
   - point B
   - last saved path
+  - sound and notification preferences
 - Self-contained Windows publish option for a portable `.exe`.
 
 ## Requirements
@@ -47,6 +50,8 @@ Captures are saved as timestamped PNG files, for example:
 ```text
 PresetSnip_2026-06-05_143012.png
 ```
+
+Use the feedback options to enable or disable the snip sound, adjust its volume, and show a simple latest-snip notification indicator.
 
 ## Build
 

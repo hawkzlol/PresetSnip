@@ -35,6 +35,8 @@ dotnet publish -c Release -r win-x64 --self-contained true /p:PublishSingleFile=
 - The overlay covers the Windows virtual screen, including negative coordinates for monitors arranged to the left or above the primary monitor.
 - `RegisterHotKey` is scoped to the app window handle and is released when the window closes.
 - Settings load failures intentionally fall back to defaults so a corrupt settings file does not prevent launch.
+- The snip sound is synthesized in memory to avoid bundling third-party sound assets.
+- Notifications use `System.Windows.Forms.NotifyIcon` and should never be required for successful capture.
 
 ## Manual Test Scenarios
 
@@ -43,4 +45,7 @@ dotnet publish -c Release -r win-x64 --self-contained true /p:PublishSingleFile=
 - Pick point B above/left of point A and confirm capture still works.
 - Set an invalid directory and confirm capture is blocked with an error.
 - Press the hotkey while another app is focused and confirm a PNG is saved.
+- Toggle sound on/off and confirm capture behavior still succeeds.
+- Move the volume slider and confirm the setting persists after restart.
+- Toggle notifications and confirm latest-snip status still updates in the app.
 - Launch after changing the app icon and confirm startup does not depend on external asset files.

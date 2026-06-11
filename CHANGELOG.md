@@ -3,6 +3,8 @@
 ## Unreleased
 
 - Added repo-ready documentation, MIT license, GitHub issue templates, and CI workflow.
+- Added optional generated snip sound with persisted volume control.
+- Added optional latest-snip notification indicator.
 
 ## 0.1.0
 
