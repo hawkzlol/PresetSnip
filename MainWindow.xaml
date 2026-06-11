@@ -6,7 +6,7 @@
         mc:Ignorable="d"
         Title="PresetSnip"
         Height="650"
-        MinHeight="620"
+        MinHeight="420"
         Width="820"
         MinWidth="740"
         Background="#0F1020"
@@ -71,6 +71,10 @@
         </Style>
     </Window.Resources>
 
+    <ScrollViewer VerticalScrollBarVisibility="Auto"
+                  HorizontalScrollBarVisibility="Disabled"
+                  PanningMode="VerticalFirst"
+                  CanContentScroll="False">
     <Grid Margin="28">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -281,4 +285,5 @@
                    Foreground="#B9A8D8"
                    FontSize="12" />
     </Grid>
+    </ScrollViewer>
 </Window>
